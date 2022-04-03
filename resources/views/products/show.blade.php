@@ -20,7 +20,9 @@
                             </p>
                         </div>
 
-                        Product Variation Selector
+                        <div class="mt-6">
+                            {{ $product->variations->sortBy('order')->groupBy('type')->first() }}
+                        </div>
                     </div>
                 </div>
             </div>
