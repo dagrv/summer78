@@ -4,8 +4,8 @@
     @endif
 
     @if ($skuVariant)
-        <div class="mt-4">
-            <x-button wire:click.prevent="addToCart" class="font-semibold w-full justify-center text-md">
+        <div class="mt-8">
+            <x-button wire:click.prevent="addToCart" class="font-semibold w-full justify-center text-lg">
                 Add to Cart - {{ $skuVariant->formattedPrice() }}
             </x-button>
         </div>
