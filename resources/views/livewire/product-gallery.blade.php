@@ -1,9 +1,12 @@
 <div class="space-y-4">
-    <img src="{{ $selectedImageUrl }}">
+    <img src="{{ $selectedImageUrl }}" class="rounded-lg shadow-lg border">
 
     <div class="grid grid-cols-6 gap-2">
-        <a href="#">
-            <img src="">
-        </a>
+        
+        @foreach ($product->getMedia() as $media)
+            <button wire:click="selectImage('{{ $media->getUrl() }}')">
+                <img src="{{ $media->getUrl('thumb200x200') }}">
+            </button>
+        @endforeach
     </div>
 </div>
