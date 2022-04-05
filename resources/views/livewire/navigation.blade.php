@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <x-application-logo class="block h-10 w-auto fill-current text-orange-600" />
                     </a>
                 </div>
 
@@ -20,6 +20,16 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                
+                <!-- Cart -->
+                <div class="hidden sm:flex sm:items-center sm:ml-6 space-x-8">
+                    <a href="/cart" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out">
+                        Cart ({{ $this->cart->contentsCount() }})
+                    </a>
+                </div>
+
+
+                
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
