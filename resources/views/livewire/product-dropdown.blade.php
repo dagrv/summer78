@@ -1,4 +1,4 @@
-<div class="mt-3">
+<div class="mt-6">
     <div class="font-semibold mb-1">
         {{ Str::title($variations->first()?->type) }}
     </div>

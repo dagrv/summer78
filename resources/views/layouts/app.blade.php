@@ -38,6 +38,9 @@
             </main>
         </div>
 
+        <!-- Notification Toast -->
+        <x-notification />
+
         <!-- Livewire Scripts -->
         <livewire:scripts />
     </body>

@@ -36,6 +36,11 @@ class ProductSelector extends Component
 
         //Emit global event to update the cart instantly.
         $this->emit('cart.updated');
+
+        $this->dispatchBrowserEvent('notification', [
+            'body' => 'Added to your cart', // TODO: Add product name too.
+            'timeout' => 4500,
+        ]);
     }
 
     public function render()
