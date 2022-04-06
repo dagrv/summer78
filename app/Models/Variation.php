@@ -21,40 +21,48 @@ class Variation extends Model implements HasMedia
         return money($this->price);
     }
 
+    
     public function inStock()
     {
         return $this->stockCount() > 0;
     }
+
 
     public function noStock()
     {
         return !$this->inStock();
     }
 
+
     public function lowStock()
     {
         return !$this->noStock() && $this->stockCount() <= 5;
     }
+
 
     public function stockCount()
     {
         return $this->descendantsAndSelf->sum(fn ($variation) => $variation->stocks->sum('amount'));
     }
 
+
     public function stocks()
     {
         return $this->hasMany(Stock::class);
     }
+
 
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb200x200')->fit(Manipulations::FIT_CROP, 200, 200);
     }
+
 
     public function registerMediaCollections(): void
     {

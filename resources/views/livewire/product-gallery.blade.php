@@ -5,7 +5,7 @@
         
         @foreach ($product->getMedia() as $media)
             <button wire:click="selectImage('{{ $media->getUrl() }}')">
-                <img src="{{ $media->getUrl('thumb200x200') }}">
+                <img src="{{ $media->getUrl('thumb200x200') }}" class="shadow-lg">
             </button>
         @endforeach
     </div>

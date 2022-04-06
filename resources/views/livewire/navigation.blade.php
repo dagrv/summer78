@@ -23,11 +23,20 @@
                 
                 <!-- Cart -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6 space-x-8">
-                    <a href="/cart" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out">
-                        Cart ({{ $this->cart->contentsCount() }})
+                    <a href="/cart" class="flex items-center text-md font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out">
+                        Cart - {{ $this->cart->contentsCount() }}
                     </a>
-                </div>
 
+                    @guest
+                        <a href="/login" class="flex items-center text-md text-blue-700 font-semibold focus:outline-none">
+                            Login
+                        </a>
+
+                        <a href="/register" class="flex items-center text-md text-indigo-700 font-semibold focus:outline-none">
+                            Register
+                        </a>
+                    @endguest
+                </div>
 
                 
                 @auth
@@ -50,8 +59,7 @@
                                 @csrf
 
                                 <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -94,8 +102,7 @@
                         @csrf
 
                         <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
