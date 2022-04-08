@@ -19,7 +19,9 @@
                     - Brand: Nike <br>
                     - Price: {{ $variation->formattedPrice() }} <br>
 
-                    (Placeholder Text)
+                    @foreach ($variation->ancestorsAndSelf as $ancestor)
+                        {{ $ancestor->title }} @if (!$loop->last) / @endif
+                    @endforeach
                 </div>
             </div>
         </div>

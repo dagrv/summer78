@@ -73,6 +73,9 @@ class Cart implements CartInterface
             return $this->instance;
         }
 
-        return $this->instance = ModelsCart::whereUuid($this->session->get(config('cart.session.key')))->first();
+        return $this->instance = ModelsCart::query()
+            ->with('variations.product')
+            ->whereUuid($this->session->get(config('cart.session.key')))
+            ->first();
     }
 }
