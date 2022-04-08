@@ -74,7 +74,7 @@ class Cart implements CartInterface
         }
 
         return $this->instance = ModelsCart::query()
-            ->with('variations.product')
+            ->with('variations.product', 'variations.ancestorsAndSelf', 'variations.descendantsAndSelf.stocks', 'variations.media')
             ->whereUuid($this->session->get(config('cart.session.key')))
             ->first();
     }
