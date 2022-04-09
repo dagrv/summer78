@@ -13,11 +13,6 @@
                 <div>{{ $variation->formattedPrice() }}</div>
 
                 <div class="flex items-center text-sm">
-                    You are buying :<br>
-                    - Size: Size 8 <br>
-                    - Color: Black <br>
-                    - Brand: Nike <br>
-                    - Price: {{ $variation->formattedPrice() }} <br>
 
                     @foreach ($variation->ancestorsAndSelf as $ancestor)
                         {{ $ancestor->title }} @if (!$loop->last) / @endif
@@ -30,7 +25,7 @@
             <div class="text-sm flex items-center space-x-2">
                 <div class="font-semibold mt-4">Quantity</div>
 
-                <select class="text-sm border-none rounded-md ml-2 mt-4">
+                <select class="text-sm border-none rounded-md ml-2 mt-4" wire:model="quantity">
                     @for ($quantity = 1; $quantity <= $variation->stockCount(); $quantity++)
                         <option value="{{ $quantity }}" class="mt-4">{{ $quantity }}</option>
                     @endfor

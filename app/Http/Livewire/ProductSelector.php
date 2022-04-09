@@ -38,7 +38,7 @@ class ProductSelector extends Component
         $this->emit('cart.updated');
 
         $this->dispatchBrowserEvent('notification', [
-            'body' => 'Added to your cart', // TODO: Add product name too.
+            'body' => $this->skuVariant->product->title . 'added to your cart ✅', // TODO: Add product name too.
             'timeout' => 4500,
         ]);
     }

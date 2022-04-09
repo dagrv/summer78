@@ -12,7 +12,6 @@ class Cart implements CartInterface
 {
     protected $instance;
     
-
     public function __construct(protected SessionManager $session) {}
 
 
@@ -45,6 +44,14 @@ class Cart implements CartInterface
             $variation->id => [
                 'quantity' => min($quantity, $variation->stockCount())
             ]
+        ]);
+    }
+
+
+    public function changeQuantity(Variation $variation, $quantity)
+    {
+        $this->instance()->variations()->updateExistingPivot($variation->id, [
+            'quantity' => min($quantity, $variation->stockCount())
         ]);
     }
 
