@@ -1,11 +1,25 @@
-<div class="overflow-hidden sm:rounded-lg grid grid-cols-6 grid-flow-col gap-4">
-    <div class="p-6 bg-white border-b sm:rounded-lg border-orange-500 col-span-4 -mt-3 self-start">
-        @foreach ($cart->contents() as $variation)
-            <livewire:cart-item :variation="$variation" />
-        @endforeach
-    </div>
+@if (!$cart->isEmpty())
+    <div class="overflow-hidden sm:rounded-lg grid grid-cols-6 grid-flow-col gap-4">
+        <div class="p-6 bg-white border-b sm:rounded-lg border-orange-500 col-span-4 -mt-3 self-start">
+            @foreach ($cart->contents() as $variation)
+                <livewire:cart-item :variation="$variation" :key="$variation->id" />
+            @endforeach
+        </div>
 
-    <div class="p-6 bg-white border-b sm:rounded-lg border-gray-200 col-span-2 -mt-3 self-start">
-        Cart Summary
+        <div class="p-6 bg-white border-b sm:rounded-lg border-gray-200 col-span-2 -mt-3 self-start">
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <div class="space-y-1 flex items-center justify-between">
+                        <h1 class="font-semibold mb-4 text-xl">TOTAL</h1>
+                    </div>
+
+                    <x-button-anchor href="/checkout" class="w-full justify-center shadow-lg">Buy ({{ $cart->formattedSubtotal() }})</x-button-anchor>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+@else
+    <div class="p-6 bg-white border-b text-xl border-gray-200 mt-2 text-center text-red-500">
+        Empty
+    </div>
+@endif

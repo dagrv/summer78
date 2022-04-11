@@ -2,7 +2,7 @@
     x-show="body.length"
     x-cloak
     x-on:notification.window="body = $event.detail.body; setTimeout(() => body = '', $event.detail.timeout || 3500)"
-    class="fixed inset-0 flex px-6 py-6 items-start pointer-events-none">
+    class="fixed inset-0 flex px-8 py-6 items-start pointer-events-none">
     <div class="w-full flex flex-col items-center space-y-4">
         <div class="max-w-sm w-full bg-black rounded-lg pointer-events-auto">
             <div class="p-4 flex items-center">

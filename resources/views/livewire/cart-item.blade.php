@@ -32,7 +32,9 @@
                 </select>
             </div>
 
-            <button class="text-sm text-red-700 mt-4">Delete</button>
+            <button class="text-sm text-red-700 mt-4" wire:click="remove">
+                Delete
+            </button>
         </div>
     </div>
 </div>
