@@ -4,7 +4,7 @@
     </div>
 
     <x-select class="w-full" wire:model="selectedVariation">
-        <option value="">Choose an Option</option>
+        <option value="">Choose an option</option>
 
         @foreach ($variations as $variation)
             <option value="{{ $variation->id }}" {{ $variation->noStock() ? 'disabled' : '' }}>
