@@ -5,15 +5,15 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="/">
                         <x-application-logo class="block h-10 w-auto fill-current text-orange-600" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link href="/" :active="request()->routeIs('dashboard')">
+                        Categories
                     </x-nav-link>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <!-- Cart -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6 space-x-8">
                     <a href="/cart" class="flex items-center text-md font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out">
-                        Cart - {{ $this->cart->contentsCount() }}
+                        Cart  - {{ $this->cart->contentsCount() }}
                     </a>
 
                     @guest
@@ -32,7 +32,7 @@
                             Login
                         </a>
 
-                        <a href="/register" class="flex items-center text-md text-indigo-700 font-semibold focus:outline-none">
+                        <a href="/register" class="flex items-center text-md text-orange-600 font-semibold focus:outline-none">
                             Register
                         </a>
                     @endguest
@@ -83,8 +83,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link href="/" :active="request()->routeIs('home')">
+                Categories
             </x-responsive-nav-link>
         </div>
 
