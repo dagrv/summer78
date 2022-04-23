@@ -32,7 +32,7 @@
                             Login
                         </a>
 
-                        <a href="/register" class="flex items-center text-md text-orange-600 font-semibold focus:outline-none">
+                        <a href="/register" class="flex items-center text-md text-green-600 font-semibold focus:outline-none">
                             Register
                         </a>
                     @endguest

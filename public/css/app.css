@@ -745,6 +745,9 @@ select {
 .h-16 {
   height: 4rem;
 }
+.h-3 {
+  height: 0.75rem;
+}
 .h-20 {
   height: 5rem;
 }
@@ -835,6 +838,11 @@ select {
 }
 .list-disc {
   list-style-type: disc;
+}
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 .grid-flow-col {
   grid-auto-flow: column;
@@ -993,6 +1001,10 @@ select {
 .bg-indigo-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
+}
+.bg-orange-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 186 116 / var(--tw-bg-opacity));
 }
 .fill-current {
   fill: currentColor;

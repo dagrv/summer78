@@ -17,7 +17,7 @@
                 <div class="space-y-1">
                     <div class="font-semibold mt-2">Max Price (0 €)</div>
                     <div class="flex items-center space-x-2">
-                        <input type="range" min="0" max="">
+                        <input class="rounded-md overflow-hidden appearance-none bg-orange-300 h-3 w-128" type="range" min="0" max="">
                     </div>
                 </div>
 
@@ -26,7 +26,8 @@
                         <div class="font-semibold">{{ Str::title($title) }}</div>
                         @foreach ($filter as $option => $count)
                             <div class="flex items-center space-x-2">
-                                <input class="rounded" type="checkbox" id="" value=""> <label for="">{{ $option }} ({{$count}})</label>
+                                <input class="rounded form-checkbox text-orange-600" checked wire:model="queryFilters.{{ $title }}" type="checkbox" id="{{ $title }}_{{ strtolower($option) }}" value="{{ $option }}">
+                                <label for="{{$title}}_{{strtolower($option)}}">{{ $option }} ({{$count}})</label>
                             </div>
                         @endforeach
                     </div>
