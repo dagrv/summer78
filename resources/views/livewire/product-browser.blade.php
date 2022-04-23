@@ -3,9 +3,13 @@
         <div class="space-y-6">
             <div class="space-y-1">
                 <ul>
-                    <li><a href="" class="text-orange-600">
-                        Category Child
-                    </a></li>
+                    @foreach ($category->children as $child)
+                        <li>
+                            <a href="/categories/{{ $child->slug }}" class="text-orange-600">
+                                {{ $child->title }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
 
@@ -17,12 +21,16 @@
                     </div>
                 </div>
 
-                <div class="space-y-1">
-                    <div class="font-semibold">Filter Title</div>
-                    <div class="flex items-center space-x-2">
-                        <input class="rounded" type="checkbox" id="" value=""> <label for="">Variation Type (0)</label>
+                @foreach ($filters as $title => $filter)
+                    <div class="space-y-1">
+                        <div class="font-semibold">{{ Str::title($title) }}</div>
+                        @foreach ($filter as $option => $count)
+                            <div class="flex items-center space-x-2">
+                                <input class="rounded" type="checkbox" id="" value=""> <label for="">{{ $option }} ({{$count}})</label>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
