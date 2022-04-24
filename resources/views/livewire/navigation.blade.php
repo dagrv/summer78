@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex flex-grow">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/">
@@ -11,10 +11,14 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex flex-grow">
                     <x-nav-link href="/" :active="request()->routeIs('dashboard')">
                         Categories
                     </x-nav-link>
+
+                    <div class="flex items-center flex-grow">
+                        <input type="search" wire:model.debounce.500ms="searchQuery" placeholder="Search" class="flex-grow w-full text-sm h-10 rounded-md shadow-sm border-gray-300 focus:border-orange-300 focus:ring focus:ring-orange-300 focus:ring-opacity-50">
+                    </div>
                 </div>
             </div>
 
@@ -80,9 +84,9 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- Categories -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="text-lg pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="/" :active="request()->routeIs('home')">
                 Categories
             </x-responsive-nav-link>
@@ -110,4 +114,25 @@
             @endauth
         </div>
     </div>
+
+    @if ($searchQuery)
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="grid grid-cols-2 column-gap-6">
+                @forelse ($products as $product)
+                    <a href="/products/{{ $product->slug }}" class="border-b py-3 space-y-2 flex items-center">
+                        <div>
+                            <div class="font-semibold text-lg">{{ $product->title }}</div>
+                            <div>{{ $product->formattedPrice() }}</div>
+                        </div>
+                    </a>
+                @empty
+                    <div class="">
+                        No Products
+                    </div>
+                @endforelse
+            </div>
+
+            <a href="#" wire:click="clearSearch" class="inline-block text-red-500 mt-6">Clear</a>
+        </div>
+    @endif
 </nav>
