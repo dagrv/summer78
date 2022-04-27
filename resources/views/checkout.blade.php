@@ -1,6 +1,6 @@
-heckout<x-app-layout>
+<x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-2xl text-gray-900 leading-tight justify-center text-center">
             Checkout
         </h2>
     </x-slot>

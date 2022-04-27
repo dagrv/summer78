@@ -1,18 +1,20 @@
-<form>
+<form wire:submit.prevent="checkout">
     <div class="overflow-hidden sm:rounded-lg grid grid-cols-6 grid-flow-col gap-4">
         <div class="p-6 rounded-lg shadow-lg bg-white border-b border-gray-200 col-span-3 self-start space-y-6">
-                <div class="space-y-3">
-                    <div class="font-semibold text-lg">Account Details</div>
-
-                    <div>
-                        <label for="email">Email</label>
-                        <x-input id="email" class="block mt-1 w-full" type="text" name="email" wire:model.defer="accountForm.email" />
-
-                        <div class="mt-2 font-semibold text-red-700">
-                            An error
+                @guest
+                    <div class="space-y-3">
+                        <div class="font-semibold text-lg">Account Details</div>
+                        <div>
+                            <label for="email">Email</label>
+                            <x-input id="email" class="block mt-1 w-full" type="text" name="email" wire:model.defer="accountForm.email" />
+                            @error('accountForm.email')
+                                <div class="mt-2 font-semibold text-red-700">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
-                </div>
+                @endguest
 
             <div class="space-y-3">
                 <div class="font-semibold text-lg">Shipping</div>
@@ -75,7 +77,7 @@
                 @foreach ($cart->contents() as $variation)
                     <div class="border-b py-3 flex items-start">
                         <div class="w-16 mr-4">
-                            <img src="{{ $variation->getFirstMediaUrl('default') }}" class="w-16">
+                            <img src="{{ $variation->getFirstMediaUrl('default') }}" class="w-16 rounded-md shadow-lg">
                         </div>
 
                         <div class="space-y-2">
@@ -103,7 +105,7 @@
                 <div class="space-y-1">
                     <div class="space-y-1 flex items-center justify-between">
                         <div class="font-semibold">Subtotal</div>
-                        <h1 class="font-semibold">0€<h1>
+                        <h1 class="font-semibold">{{ $cart->formattedSubtotal() }}<h1>
                     </div>
 
                     <div class="space-y-1 flex items-center justify-between">
@@ -113,7 +115,7 @@
 
                     <div class="space-y-1 flex items-center justify-between">
                         <div class="font-semibold">Total</div>
-                        <h1 class="font-semibold">0€</h1>
+                        <h1 class="font-semibold">{{ money($this->total) }}</h1>
                     </div>
                 </div>
 
