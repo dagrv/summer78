@@ -60,7 +60,7 @@ class Variation extends Model implements HasMedia
 
     public function registerMediaConversions(?Media $media = null): void
     {
-        $this->addMediaConversion('thumb300x300')->fit(Manipulations::FIT_CROP, 200, 200);
+        $this->addMediaConversion('thumb200x200')->fit(Manipulations::FIT_CROP, 200, 200);
     }
 
 
