@@ -11,30 +11,40 @@ class Checkout extends Component
     public $shippingTypes;
     public $shippingTypeId;
     
-    public $accountForm = [
-        'email' => ''
+    public $accountForm = ['email' => ''];
+    
+    public $shippingForm = [
+        'address'   => '',
+        'city'      => '',
+        'postcode'  => ''
     ];
-
+    
     protected $validationAttributes = [
-        'accountForm.email' => 'email address'
+        'accountForm.email'      => 'email address',
+        'shippingForm.address'   => 'shipping address',
+        'shippingForm.city'      => 'shipping city',
+        'shippingForm.postcode'  => 'shipping postal code',
     ];
-
+    
     protected $messages = [
-        'accountForm.email.unique' => 'You already have an account. Please sign-in'
+        'accountForm.email.unique'      => 'You already have an account. Please sign-in',
+        'shippingForm.address.required' => 'Your :attribute is required',
     ];
 
     public function rules()
     {
         return [
-            'accountForm.email' => 'required|email|max:255|unique:users,email' . (auth()->user() ? ',' . auth()->user()->id : '')
+            'accountForm.email'      => 'required|email|max:255|unique:users,email' . (auth()->user() ? ',' . auth()->user()->id : ''),
+            'shippingForm.address'   => 'required|max:255',
+            'shippingForm.city'      => 'required|max:255',
+            'shippingForm.postcode'  => 'required|max:255',
+            'shippingTypeId'         => 'required|exists:shipping_types,id',
         ];
     }
 
     public function checkout()
     {
         $this->validate();
-
-        dd('create order');
     }
 
     public function mount()
