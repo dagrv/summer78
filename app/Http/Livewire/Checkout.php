@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Cart\Contracts\CartInterface;
+use App\Models\ShippingAddress;
 use App\Models\ShippingType;
 use Livewire\Component;
 
@@ -10,6 +11,7 @@ class Checkout extends Component
 {
     public $shippingTypes;
     public $shippingTypeId;
+    public $shippingAddress;
     
     public $accountForm = ['email' => ''];
     
@@ -45,6 +47,11 @@ class Checkout extends Component
     public function checkout()
     {
         $this->validate();
+        
+        ($this->shippingAddress = ShippingAddress::whereBelongsTo(auth()->user())->firstOrCreate($this->shippingForm))
+            ?->user()
+            ->associate(auth()->user())
+            ->save();
     }
 
     public function mount()
@@ -53,8 +60,6 @@ class Checkout extends Component
         $this->shippingTypeId = $this->shippingTypes->first()->id;
 
         if ($user = auth()->user()) {
-            dd($user);
-
             $this->accountForm['email'] = $user->email;
         }
     }
