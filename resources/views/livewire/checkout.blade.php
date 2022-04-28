@@ -16,14 +16,18 @@
                     </div>
                 @endguest
 
+            {{-- Shipping --}}
             <div class="space-y-3">
                 <div class="font-semibold text-lg">Shipping</div>
+
+                @if ($this->userShippingAddresses)
                     <x-select class="w-full" wire:model="userShippingAddressId">
                         <option value="">Choose a pre-saved address or create</option>
                         @foreach ($this->userShippingAddresses as $address)
                             <option value="{{ $address->id }}">{{ $address->formattedAddress() }}</option>
                         @endforeach
                     </x-select>
+                @endif
 
                 <div class="space-y-3">
                     <div>
