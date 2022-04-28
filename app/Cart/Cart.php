@@ -86,11 +86,9 @@ class Cart implements CartInterface
                     'quantity' => $quantity
                 ]
             ];
-        })
-        ->reject(function ($syncedQuantity) {
+        })->reject(function ($syncedQuantity) {
             return $syncedQuantity['quantity'] === 0;
-        })
-        ->toArray();
+        })->toArray();
 
         $this->instance()->variations()->sync($syncedQuantities);
         $this->clearInstanceCache();

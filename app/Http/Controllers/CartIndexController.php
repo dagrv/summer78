@@ -13,6 +13,8 @@ class CartIndexController extends Controller
         try {
             $cart->verifyAvailableQuantities();
         } catch(QuantityNoLongerAvailable $e) {
+            session()->flash('notification', 'Some items are no longer available');
+            
             $cart->syncAvailableQuantities();
         }
 
