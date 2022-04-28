@@ -35,7 +35,6 @@ class Cart implements CartInterface
         $this->session->put(config('cart.session.key'), $instance->uuid);
     }
 
-
     public function add(Variation $variation, $quantity = 1)
     {
         if ($existingVariation = $this->getVariation($variation)) {
@@ -49,7 +48,6 @@ class Cart implements CartInterface
         ]);
     }
 
-
     public function changeQuantity(Variation $variation, $quantity)
     {
         $this->instance()->variations()->updateExistingPivot($variation->id, [
@@ -62,12 +60,10 @@ class Cart implements CartInterface
         $this->instance()->variations()->detach($variation);
     }
 
-
     public function isEmpty()
     {
         return $this->contents()->count() === 0;
     }
-
 
     public function verifyAvailableQuantities()
     {
@@ -78,24 +74,42 @@ class Cart implements CartInterface
         });
     }
 
+    public function syncAvailableQuantities()
+    {
+        $syncedQuantities = $this->instance()->variations->mapWithKeys(function($variation) {
+            $quantity = $variation->pivot->quantity > $variation->stocks->sum('count')
+                ? $variation->stockCount()
+                : $variation->pivot->quantity;
+
+            return [
+                $variation->id => [
+                    'quantity' => $quantity
+                ]
+            ];
+        })
+        ->reject(function ($syncedQuantity) {
+            return $syncedQuantity['quantity'] === 0;
+        })
+        ->toArray();
+
+        $this->instance()->variations()->sync($syncedQuantities);
+        $this->clearInstanceCache();
+    }
 
     public function getVariation(Variation $variation)
     {
         return $this->instance()->variations->find($variation->id);
     }
 
-
     public function contents()
     {
         return $this->instance()->variations;
     }
 
-
     public function contentsCount()
     {
         return $this->contents()->count();
     }
-
 
     public function subtotal()
     {
@@ -105,12 +119,15 @@ class Cart implements CartInterface
         });
     }
 
-
     public function formattedSubtotal()
     {
         return money($this->subtotal());
     }
 
+    protected function clearInstanceCache()
+    {
+        $this->instance = null;
+    }
 
     protected function instance()
     {
