@@ -13,8 +13,7 @@ class ProductBrowser extends Component
         'max' => null
     ];
 
-    public function mount()
-    {
+    public function mount() {
         $this->queryFilters = $this->category->products->pluck('variations')
             ->flatten()
             ->groupBy('type')
@@ -23,8 +22,7 @@ class ProductBrowser extends Component
             ->toArray();
     }
 
-    public function render()
-    {
+    public function render() {
         // Product Research
         $search = Product::search('', function($meilisearch, string $query, array $options) {
             $filters = collect($this->queryFilters)->filter(fn($filter) => !empty($filter))
@@ -33,7 +31,7 @@ class ProductBrowser extends Component
                     return $value->map(fn ($value) => $key . ' = "' . $value . '"');
                 })
                 ->flatten()
-                ->join(' AND ');
+                ->join(' OR ');
             
             $options['facetsDistribution'] = ['size', 'color']; // Temporary Solution
             $options['filter'] = null;
