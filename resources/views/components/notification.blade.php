@@ -1,7 +1,6 @@
 <div x-data="{ body: '' }" x-show="body.length" x-cloak
     x-on:notification.window="body = $event.detail.body; setTimeout(() => body = '', $event.detail.timeout || 3500)"
     class="fixed inset-0 flex px-8 py-6 items-start pointer-events-none"
-    
     x-init="
         @if (session()->has('notification'))
             window.onload = () => {

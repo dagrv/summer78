@@ -30,7 +30,7 @@ class Checkout extends Component {
     ];
     
     protected $messages = [
-        'accountForm.email.unique'      => 'You already have an account. Please sign-in',
+        'accountForm.email.unique'      => 'You already have an account. Please Sign-in',
         'shippingForm.address.required' => 'Your :attribute is required',
     ];
 
@@ -49,8 +49,7 @@ class Checkout extends Component {
             return;
         }
 
-        $this->shippingForm = $this->userShippingAddresses->find($id)
-             ->only('address', 'city', 'postcode');
+        $this->shippingForm = $this->userShippingAddresses->find($id)->only('address', 'city', 'postcode');
     }
 
     public function getUserShippingAddressesProperty() {
@@ -79,6 +78,18 @@ class Checkout extends Component {
         $order->shippingAddress()->associate($this->shippingAddress);
 
         $order->save();
+
+        $order->variations()->attach(
+            $cart->contents()->mapWithKeys(function($variation) {
+                return [
+                    $variation->id => [
+                        'quantity' => $variation->pivot->quantity
+                    ]
+                ];
+            })
+
+            ->toArray()
+        );
     }
 
     public function mount() {
