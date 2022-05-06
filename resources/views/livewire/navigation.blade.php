@@ -27,7 +27,7 @@
                 
                 <!-- Cart -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6 space-x-8">
-                    <a href="/cart" class="flex items-center text-md font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out">
+                    <a href="/cart" class="flex items-center text-md font-medium text-gray-700 hover:text-gray-800 hover:border-gray-400 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-75 ease-in-out mr-4">
                         Cart  - {{ $this->cart->contentsCount() }}
                     </a>
 
