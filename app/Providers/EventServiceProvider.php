@@ -7,6 +7,8 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\AttachOrders;
+use App\Models\Order;
+use App\Observers\OrderObserver;
 
 class EventServiceProvider extends ServiceProvider {
     /**
@@ -28,6 +30,6 @@ class EventServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-        //
+        Order::observe(OrderObserver::class);
     }
 }
