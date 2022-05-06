@@ -24,11 +24,27 @@ class Order extends Model {
         'shipped_at'
     ];
 
+    protected $casts = [
+        'placed_at'     => 'datetime',
+        'packaged_at'   => 'datetime',
+        'shipped_at'    => 'datetime'
+    ];
+
+    public $statuses = [
+        'placed_at',
+        'packaged_at',
+        'shipped_at'
+    ];
+
     public static function booted() {
         static::creating(function (Order $order) {
             $order->placed_at = now();
             $order->uuid = (string) Str::uuid();
         });
+    }
+
+    public function status() {
+        return collect($this->statuses)->last(fn($status) => filled($this->{$status}));
     }
 
     public function formattedSubtotal() {
@@ -53,3 +69,7 @@ class Order extends Model {
             ->withTimestamps();
     }
 }
+
+// The most difficult thing is the decision to act. The rest is merely tenacity. The fears are paper tigers. You can do anything you decide to do. You can act to change and control your life and the procedure. The process is its own reward. 
+// Pour Julie F.
+// Merci pour tout
