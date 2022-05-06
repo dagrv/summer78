@@ -12,14 +12,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Product extends Model implements HasMedia
-{
+class Product extends Model implements HasMedia {
     use HasFactory;
     use InteractsWithMedia;
     use Searchable;
 
-    public static function booted()
-    {
+    public static function booted() {
         static::addGlobalScope(new LiveScope);
     }
 
@@ -27,28 +25,23 @@ class Product extends Model implements HasMedia
         return money($this->price);
     }
 
-
     public function variations() {
         return $this->hasMany(Variation::class);
     }
 
-    public function registerMediaConversions(?Media $media = null): void
-    {
+    public function registerMediaConversions(?Media $media = null): void {
         $this->addMediaConversion('thumb200x200')->fit(Manipulations::FIT_CROP, 200, 200);
     }
 
-    public function registerMediaCollections(): void
-    {
+    public function registerMediaCollections(): void {
         $this->addMediaCollection('default')->useFallbackUrl(url('/storage/no-image.png'));
     }
 
-    public function categories()
-    {
+    public function categories() {
         return $this->belongsToMany(Category::class);
     }
 
-    public function toSearchableArray()
-    {
+    public function toSearchableArray() {
         $this->variations->groupBy('type');
 
         return array_merge([
