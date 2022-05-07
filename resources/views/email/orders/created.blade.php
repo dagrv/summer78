@@ -5,6 +5,6 @@
 Button Text
 @endcomponent
 
-Thanks,<br>
+Thanks, Summer78<br>
 {{ config('app.name') }}
 @endcomponent
