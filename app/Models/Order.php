@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Presenters\OrderPresenter;
 use App\Models\Variation;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -67,6 +68,10 @@ class Order extends Model {
         return $this->belongsToMany(Variation::class)
             ->withPivot(['quantity'])
             ->withTimestamps();
+    }
+
+    public function presenter() {
+        return new OrderPresenter($this);
     }
 }
 
